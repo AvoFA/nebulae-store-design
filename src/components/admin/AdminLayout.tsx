@@ -1,44 +1,27 @@
 import { useState } from "react";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import {
-  LayoutDashboard,
   Package,
   FolderTree,
-  ShoppingCart,
-  Users,
-  UserCog,
-  BarChart3,
-  Settings,
   LogOut,
   Menu,
   X,
-  Bell,
   Search,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const navigation = [
-  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Products", href: "/admin/products", icon: Package },
   { name: "Categories", href: "/admin/categories", icon: FolderTree },
-  { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
-  { name: "Clients", href: "/admin/clients", icon: Users },
-  { name: "Staff", href: "/admin/staff", icon: UserCog },
-  { name: "Reports", href: "/admin/reports", icon: BarChart3 },
-  { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
 export function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => {
-    if (path === "/admin") {
-      return location.pathname === "/admin";
-    }
-    return location.pathname.startsWith(path);
-  };
+  const isActive = (path: string) => location.pathname.startsWith(path);
 
   return (
     <div className="min-h-screen bg-background">
@@ -135,14 +118,8 @@ export function AdminLayout() {
 
             {/* Right side */}
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <span className="absolute top-1 right-1 h-2 w-2 bg-primary rounded-full" />
-              </Button>
               <Button variant="ghost" size="icon">
-                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-sm font-semibold">
-                  A
-                </div>
+                <User className="h-5 w-5" />
               </Button>
             </div>
           </div>
