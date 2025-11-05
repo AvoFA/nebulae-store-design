@@ -43,17 +43,19 @@ export default function Products() {
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Products</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Products
+          </h1>
+          <p className="text-muted-foreground">
             Manage your product inventory
           </p>
         </div>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="glow-primary">
+            <Button className="glow-primary bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity">
               <Plus className="mr-2 h-4 w-4" />
               Add Product
             </Button>
@@ -112,27 +114,27 @@ export default function Products() {
       </div>
 
       {/* Filters */}
-      <Card className="glass-card">
-        <CardContent className="pt-6">
+      <Card className="glass-card border-border/50 glow-primary">
+        <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
-                placeholder="Search products..."
-                className="pl-10"
+                placeholder="Search products by name..."
+                className="pl-12 h-12 bg-background/50 border-border/50 focus:border-primary rounded-xl"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-48">
+              <SelectTrigger className="w-full md:w-56 h-12 bg-background/50 border-border/50 focus:border-primary rounded-xl">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="phones">Phones</SelectItem>
-                <SelectItem value="laptops">Laptops</SelectItem>
-                <SelectItem value="tablets">Tablets</SelectItem>
+                <SelectItem value="phones">📱 Phones</SelectItem>
+                <SelectItem value="laptops">💻 Laptops</SelectItem>
+                <SelectItem value="tablets">📲 Tablets</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -140,45 +142,57 @@ export default function Products() {
       </Card>
 
       {/* Products Table */}
-      <Card className="glass-card">
+      <Card className="glass-card border-border/50 overflow-hidden">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Image</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Stock</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+              <TableRow className="border-border/50 hover:bg-transparent">
+                <TableHead className="h-14">Image</TableHead>
+                <TableHead className="h-14">Name</TableHead>
+                <TableHead className="h-14">Category</TableHead>
+                <TableHead className="h-14">Price</TableHead>
+                <TableHead className="h-14">Stock</TableHead>
+                <TableHead className="h-14 text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredProducts.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow key={product.id} className="border-border/50 hover:bg-muted/30 transition-colors">
                   <TableCell>
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="h-12 w-12 rounded-lg object-cover"
-                    />
+                    <div className="h-16 w-16 rounded-xl overflow-hidden border-2 border-border/50 bg-muted/30">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
                   </TableCell>
-                  <TableCell className="font-medium">{product.name}</TableCell>
+                  <TableCell className="font-semibold text-foreground">{product.name}</TableCell>
                   <TableCell>
-                    <span className="px-2 py-1 rounded-full text-xs bg-primary/10 text-primary capitalize">
+                    <span className="px-3 py-1.5 rounded-full text-xs font-medium bg-gradient-to-r from-primary/20 to-secondary/20 text-primary border border-primary/30 capitalize">
                       {product.category}
                     </span>
                   </TableCell>
-                  <TableCell>${product.price}</TableCell>
+                  <TableCell className="font-bold text-lg text-primary">${product.price}</TableCell>
                   <TableCell>
-                    <span className="text-green-400">In Stock</span>
+                    <span className="px-3 py-1.5 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
+                      In Stock
+                    </span>
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="icon">
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        className="hover:bg-primary/10 hover:text-primary rounded-lg transition-all"
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="hover:bg-destructive/10 hover:text-destructive rounded-lg transition-all"
+                      >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
