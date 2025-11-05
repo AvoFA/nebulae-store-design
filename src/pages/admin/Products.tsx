@@ -74,9 +74,9 @@ export default function Products() {
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="phone">Phone</SelectItem>
-                    <SelectItem value="laptop">Laptop</SelectItem>
-                    <SelectItem value="tablet">Tablet</SelectItem>
+                    <SelectItem value="phones">Phones</SelectItem>
+                    <SelectItem value="laptops">Laptops</SelectItem>
+                    <SelectItem value="tablets">Tablets</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -130,9 +130,9 @@ export default function Products() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="phone">Phones</SelectItem>
-                <SelectItem value="laptop">Laptops</SelectItem>
-                <SelectItem value="tablet">Tablets</SelectItem>
+                <SelectItem value="phones">Phones</SelectItem>
+                <SelectItem value="laptops">Laptops</SelectItem>
+                <SelectItem value="tablets">Tablets</SelectItem>
               </SelectContent>
             </Select>
           </div>

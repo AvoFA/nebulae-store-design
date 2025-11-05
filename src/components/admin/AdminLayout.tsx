@@ -15,10 +15,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const navigation = [
-  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Products", href: "/admin/products", icon: Package },
+  { name: "Products", href: "/admin", icon: Package },
   { name: "Categories", href: "/admin/categories", icon: FolderTree },
-  { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
 ];
 
 export function AdminLayout() {

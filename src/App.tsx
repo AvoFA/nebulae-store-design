@@ -13,10 +13,8 @@ import About from "./pages/About";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { AdminLayout } from "./components/admin/AdminLayout";
-import Dashboard from "./pages/admin/Dashboard";
 import Products from "./pages/admin/Products";
 import Categories from "./pages/admin/Categories";
-import Orders from "./pages/admin/Orders";
 
 const queryClient = new QueryClient();
 
@@ -38,10 +36,8 @@ const App = () => (
           
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="products" element={<Products />} />
+            <Route index element={<Products />} />
             <Route path="categories" element={<Categories />} />
-            <Route path="orders" element={<Orders />} />
           </Route>
           
           <Route path="*" element={<NotFound />} />
