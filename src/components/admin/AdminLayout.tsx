@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import {
+  LayoutDashboard,
   Package,
   FolderTree,
+  ShoppingCart,
   LogOut,
   Menu,
   X,
@@ -13,15 +15,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const navigation = [
+  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Products", href: "/admin/products", icon: Package },
   { name: "Categories", href: "/admin/categories", icon: FolderTree },
+  { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
 ];
 
 export function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => location.pathname.startsWith(path);
+  const isActive = (path: string) => {
+    if (path === "/admin") {
+      return location.pathname === "/admin";
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <div className="min-h-screen bg-background">
