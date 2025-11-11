@@ -41,26 +41,30 @@ const Catalog = () => {
     <div className="min-h-screen">
       <Navbar />
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Product Catalog</h1>
+        <div className="mb-12">
+          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Product Catalog</h1>
+          <p className="text-muted-foreground text-lg">Discover our complete collection</p>
+        </div>
 
-        <div className="mb-8 space-y-4">
+        <div className="mb-10 space-y-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
             <Input
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              className="pl-12 h-14 text-base border-border/50 focus:border-primary/50 bg-background/50 backdrop-blur-sm"
             />
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {categories.map((category) => (
               <Button
                 key={category.value}
                 variant={selectedCategory === category.value ? 'default' : 'outline'}
                 onClick={() => setSelectedCategory(category.value)}
-                className={selectedCategory === category.value ? 'glow-primary' : ''}
+                className={selectedCategory === category.value ? 'glow-primary hover:scale-105 transition-all' : 'border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 transition-all'}
+                size="lg"
               >
                 {category.label}
               </Button>
@@ -69,14 +73,18 @@ const Catalog = () => {
         </div>
 
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-20">
-            <p className="text-muted-foreground text-lg">No products found matching your criteria.</p>
+          <div className="text-center py-32 glass-card rounded-3xl">
+            <div className="inline-flex p-6 rounded-full bg-muted/20 mb-6">
+              <Search className="h-12 w-12 text-muted-foreground" />
+            </div>
+            <h3 className="text-2xl font-bold mb-3">No products found</h3>
+            <p className="text-muted-foreground text-lg">Try adjusting your search or filters</p>
           </div>
         )}
       </main>

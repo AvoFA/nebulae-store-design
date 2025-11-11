@@ -22,21 +22,27 @@ const Home = () => {
       <main className="container mx-auto px-4 py-8">
         <Hero />
 
-        <section className="mt-20">
-          <h2 className="text-3xl font-bold mb-8 text-center">Shop by Category</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <section className="mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Shop by Category</h2>
+            <p className="text-muted-foreground text-lg">Find exactly what you're looking for</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {categories.map((category) => {
               const Icon = category.icon;
               return (
                 <Link key={category.name} to={category.path}>
-                  <div className={`glass-card p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg group`}>
-                    <div className={`inline-flex p-6 rounded-full bg-gradient-to-br ${category.color} mb-4 group-hover:scale-110 transition-transform`}>
-                      <Icon className="h-12 w-12 text-white" />
+                  <div className="glass-card p-10 text-center border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-xl hover:shadow-primary/20 group hover:scale-105 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="relative">
+                      <div className="inline-flex p-8 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg glow-primary">
+                        <Icon className="h-14 w-14 text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{category.name}</h3>
+                      <Button variant="link" className="text-primary font-semibold group-hover:translate-x-2 transition-transform">
+                        Browse Collection →
+                      </Button>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">{category.name}</h3>
-                    <Button variant="link" className="text-primary">
-                      Browse Collection →
-                    </Button>
                   </div>
                 </Link>
               );
@@ -44,32 +50,43 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="mt-20">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold">Popular Products</h2>
+        <section className="mt-24">
+          <div className="flex items-center justify-between mb-12">
+            <div>
+              <h2 className="text-4xl font-bold mb-2">Popular Products</h2>
+              <p className="text-muted-foreground">Trending items this week</p>
+            </div>
             <Link to="/catalog">
-              <Button variant="outline">View All</Button>
+              <Button variant="outline" size="lg" className="border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 transition-all">
+                View All →
+              </Button>
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {popularProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </section>
 
-        <section className="mt-20 glass-card p-12 rounded-2xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Why Choose OnlineStore?</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-            We're committed to providing you with the latest technology, competitive prices, 
-            and exceptional customer service. Every product is carefully selected to meet our 
-            high standards of quality and innovation.
-          </p>
-          <Link to="/about">
-            <Button variant="outline" size="lg">
-              Learn More About Us
-            </Button>
-          </Link>
+        <section className="mt-24 glass-card p-16 rounded-3xl text-center relative overflow-hidden border-border/50">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 pointer-events-none" />
+          <div className="relative">
+            <div className="inline-block mb-4 px-6 py-2 rounded-full bg-primary/10 border border-primary/30">
+              <span className="text-primary font-semibold text-sm">✨ Premium Experience</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Why Choose OnlineStore?</h2>
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
+              We're committed to providing you with the latest technology, competitive prices, 
+              and exceptional customer service. Every product is carefully selected to meet our 
+              high standards of quality and innovation.
+            </p>
+            <Link to="/about">
+              <Button variant="outline" size="lg" className="border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 transition-all text-base h-14 px-8">
+                Learn More About Us →
+              </Button>
+            </Link>
+          </div>
         </section>
       </main>
       <Footer />

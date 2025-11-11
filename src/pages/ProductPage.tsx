@@ -54,54 +54,83 @@ const ProductPage = () => {
           Back
         </Button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="aspect-square overflow-hidden rounded-2xl glass-card">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="aspect-square overflow-hidden rounded-3xl glass-card border-border/50 group relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 pointer-events-none z-10" />
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
           </div>
 
           <div className="flex flex-col justify-center">
-            <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-            <p className="text-3xl font-bold text-primary mb-6">${product.price}</p>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
+            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/30 w-fit">
+              <span className="text-primary font-semibold text-sm capitalize">{product.category}</span>
+            </div>
+            
+            <h1 className="text-5xl font-bold mb-6 leading-tight">{product.name}</h1>
+            
+            <div className="flex items-baseline gap-3 mb-8">
+              <p className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">${product.price}</p>
+              <span className="text-muted-foreground line-through text-xl">${(product.price * 1.2).toFixed(0)}</span>
+              <span className="px-3 py-1 rounded-full bg-destructive/10 text-destructive text-sm font-semibold">Save 20%</span>
+            </div>
+            
+            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">
               {product.description}
             </p>
 
-            <div className="space-y-4">
+            <div className="space-y-4 mb-10">
               <Button
                 size="lg"
-                className="w-full glow-primary"
+                className="w-full glow-primary text-lg h-16 hover:scale-[1.02] transition-transform"
                 onClick={handleAddToCart}
               >
-                <ShoppingCart className="mr-2 h-5 w-5" />
+                <ShoppingCart className="mr-2 h-6 w-6" />
                 Add to Cart
               </Button>
               <Link to="/cart" className="block">
-                <Button size="lg" variant="outline" className="w-full">
+                <Button size="lg" variant="outline" className="w-full text-lg h-16 border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all">
                   View Cart
                 </Button>
               </Link>
             </div>
 
-            <div className="mt-8 glass-card p-6 rounded-xl">
-              <h3 className="font-semibold mb-4">Key Features</h3>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>• Premium build quality</li>
-                <li>• Latest technology</li>
-                <li>• Fast shipping available</li>
-                <li>• 1-year warranty included</li>
+            <div className="glass-card p-8 rounded-2xl border-border/50">
+              <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
+                <span className="w-1.5 h-6 bg-gradient-to-b from-primary to-secondary rounded-full" />
+                Key Features
+              </h3>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-primary" />
+                  Premium build quality
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-primary" />
+                  Latest technology
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-primary" />
+                  Fast shipping available
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-primary" />
+                  1-year warranty included
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
         {similarProducts.length > 0 && (
-          <section className="mt-20">
-            <h2 className="text-3xl font-bold mb-8">Similar Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <section className="mt-24">
+            <div className="mb-12">
+              <h2 className="text-4xl font-bold mb-3">Similar Products</h2>
+              <p className="text-muted-foreground text-lg">You might also like</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {similarProducts.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

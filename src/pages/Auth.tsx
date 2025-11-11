@@ -39,21 +39,26 @@ const Auth = () => {
     <div className="min-h-screen">
       <Navbar />
       <main className="container mx-auto px-4 py-8">
-        <div className="max-w-md mx-auto">
+        <div className="max-w-lg mx-auto">
+          <div className="text-center mb-10">
+            <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Welcome</h1>
+            <p className="text-muted-foreground text-lg">Sign in or create an account to continue</p>
+          </div>
+          
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-8 h-14 p-1.5">
+              <TabsTrigger value="login" className="text-base">Login</TabsTrigger>
+              <TabsTrigger value="register" className="text-base">Register</TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
-              <Card className="glass-card">
-                <CardHeader>
-                  <CardTitle>Welcome Back</CardTitle>
-                  <CardDescription>Login to your account to continue shopping</CardDescription>
+              <Card className="glass-card border-border/50">
+                <CardHeader className="pb-8">
+                  <CardTitle className="text-3xl">Welcome Back</CardTitle>
+                  <CardDescription className="text-base">Login to your account to continue shopping</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleLogin} className="space-y-4">
+                  <form onSubmit={handleLogin} className="space-y-5">
                     <div>
                       <Label htmlFor="login-email">Email</Label>
                       <Input
@@ -81,10 +86,10 @@ const Auth = () => {
                     </Button>
                     <Button
                       type="submit"
-                      className="w-full glow-primary"
+                      className="w-full glow-primary text-lg h-14 mt-2 hover:scale-[1.02] transition-transform"
                       disabled={isLoading}
                     >
-                      {isLoading ? 'Logging in...' : 'Login'}
+                      {isLoading ? 'Logging in...' : 'Login →'}
                     </Button>
                   </form>
                 </CardContent>
@@ -92,13 +97,13 @@ const Auth = () => {
             </TabsContent>
 
             <TabsContent value="register">
-              <Card className="glass-card">
-                <CardHeader>
-                  <CardTitle>Create Account</CardTitle>
-                  <CardDescription>Sign up to start shopping with us</CardDescription>
+              <Card className="glass-card border-border/50">
+                <CardHeader className="pb-8">
+                  <CardTitle className="text-3xl">Create Account</CardTitle>
+                  <CardDescription className="text-base">Sign up to start shopping with us</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleRegister} className="space-y-4">
+                  <form onSubmit={handleRegister} className="space-y-5">
                     <div>
                       <Label htmlFor="register-name">Full Name</Label>
                       <Input
@@ -137,10 +142,10 @@ const Auth = () => {
                     </div>
                     <Button
                       type="submit"
-                      className="w-full glow-primary"
+                      className="w-full glow-primary text-lg h-14 mt-2 hover:scale-[1.02] transition-transform"
                       disabled={isLoading}
                     >
-                      {isLoading ? 'Creating account...' : 'Create Account'}
+                      {isLoading ? 'Creating account...' : 'Create Account →'}
                     </Button>
                   </form>
                 </CardContent>
