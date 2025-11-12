@@ -5,44 +5,55 @@ import Hero from '@/components/Hero';
 import ProductCard from '@/components/ProductCard';
 import { products } from '@/data/products';
 import { Button } from '@/components/ui/button';
-import { Smartphone, Laptop, Tablet } from 'lucide-react';
+import { Smartphone, Laptop, Tablet, TrendingUp, Award, Sparkles } from 'lucide-react';
 
 const Home = () => {
-  const popularProducts = products.slice(0, 6);
+  const featuredProducts = products.slice(0, 6);
 
   const categories = [
-    { name: 'Smartphones', icon: Smartphone, path: '/catalog?category=phones', color: 'from-blue-500 to-blue-700' },
-    { name: 'Laptops', icon: Laptop, path: '/catalog?category=laptops', color: 'from-purple-500 to-purple-700' },
-    { name: 'Tablets', icon: Tablet, path: '/catalog?category=tablets', color: 'from-pink-500 to-pink-700' },
+    { name: 'Smartphones', icon: Smartphone, path: '/catalog?category=phones', count: products.filter(p => p.category === 'phones').length },
+    { name: 'Laptops', icon: Laptop, path: '/catalog?category=laptops', count: products.filter(p => p.category === 'laptops').length },
+    { name: 'Tablets', icon: Tablet, path: '/catalog?category=tablets', count: products.filter(p => p.category === 'tablets').length },
+  ];
+
+  const features = [
+    { icon: TrendingUp, title: 'Best Prices', description: 'Competitive pricing guaranteed' },
+    { icon: Award, title: 'Quality Products', description: 'Premium brands only' },
+    { icon: Sparkles, title: 'Latest Tech', description: 'Always up to date' },
   ];
 
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="container mx-auto px-4 py-8">
-        <Hero />
+      <main className="pt-24">
+        <div className="container mx-auto px-4 py-12">
+          <Hero />
+        </div>
 
-        <section className="mt-24">
+        <section className="container mx-auto px-4 py-20">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Shop by Category</h2>
-            <p className="text-muted-foreground text-lg">Find exactly what you're looking for</p>
+            <h2 className="text-5xl font-bold mb-4">Browse by Category</h2>
+            <p className="text-muted-foreground text-lg">Choose your device type</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {categories.map((category) => {
               const Icon = category.icon;
               return (
-                <Link key={category.name} to={category.path}>
-                  <div className="glass-card p-10 text-center border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-xl hover:shadow-primary/20 group hover:scale-105 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="relative">
-                      <div className="inline-flex p-8 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg glow-primary">
-                        <Icon className="h-14 w-14 text-white" />
-                      </div>
-                      <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{category.name}</h3>
-                      <Button variant="link" className="text-primary font-semibold group-hover:translate-x-2 transition-transform">
-                        Browse Collection →
-                      </Button>
+                <Link
+                  key={category.name}
+                  to={category.path}
+                  className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/5 to-secondary/5 border border-border/50 hover:border-primary/30 p-10 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10"
+                >
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                  <div className="relative">
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
+                      <Icon className="h-10 w-10 text-white" />
                     </div>
+                    <h3 className="text-3xl font-bold mb-2 group-hover:text-primary transition-colors">{category.name}</h3>
+                    <p className="text-muted-foreground mb-4">{category.count} products available</p>
+                    <span className="text-primary font-semibold group-hover:translate-x-2 inline-block transition-transform">
+                      Explore →
+                    </span>
                   </div>
                 </Link>
               );
@@ -50,42 +61,59 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="mt-24">
-          <div className="flex items-center justify-between mb-12">
+        <section className="container mx-auto px-4 py-20">
+          <div className="flex items-end justify-between mb-12">
             <div>
-              <h2 className="text-4xl font-bold mb-2">Popular Products</h2>
-              <p className="text-muted-foreground">Trending items this week</p>
+              <h2 className="text-5xl font-bold mb-3">Featured Products</h2>
+              <p className="text-muted-foreground text-lg">Handpicked for you</p>
             </div>
             <Link to="/catalog">
-              <Button variant="outline" size="lg" className="border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 transition-all">
-                View All →
+              <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 rounded-xl h-14 px-8">
+                View All Products →
               </Button>
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {popularProducts.map((product) => (
+            {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </section>
 
-        <section className="mt-24 glass-card p-16 rounded-3xl text-center relative overflow-hidden border-border/50">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 pointer-events-none" />
-          <div className="relative">
-            <div className="inline-block mb-4 px-6 py-2 rounded-full bg-primary/10 border border-primary/30">
-              <span className="text-primary font-semibold text-sm">✨ Premium Experience</span>
+        <section className="container mx-auto px-4 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {features.map((feature) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={feature.title}
+                  className="group p-8 rounded-3xl border border-border/50 hover:border-primary/30 bg-gradient-to-br from-background to-muted/20 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500"
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <Icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="container mx-auto px-4 py-20">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/10 to-primary/10 border border-primary/20 p-16 text-center">
+            <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
+            <div className="relative">
+              <h2 className="text-5xl font-bold mb-6">Ready to Upgrade?</h2>
+              <p className="text-muted-foreground text-xl max-w-2xl mx-auto mb-10">
+                Discover the perfect device that matches your lifestyle. Premium quality, unbeatable prices.
+              </p>
+              <Link to="/catalog">
+                <Button size="lg" className="glow-primary h-16 px-12 text-lg rounded-2xl hover:scale-105 transition-transform">
+                  Start Shopping Now
+                </Button>
+              </Link>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Why Choose OnlineStore?</h2>
-            <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
-              We're committed to providing you with the latest technology, competitive prices, 
-              and exceptional customer service. Every product is carefully selected to meet our 
-              high standards of quality and innovation.
-            </p>
-            <Link to="/about">
-              <Button variant="outline" size="lg" className="border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 transition-all text-base h-14 px-8">
-                Learn More About Us →
-              </Button>
-            </Link>
           </div>
         </section>
       </main>

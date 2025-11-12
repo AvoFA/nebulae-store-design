@@ -6,7 +6,8 @@ import ProductCard from '@/components/ProductCard';
 import { products } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 type Category = 'all' | 'phones' | 'laptops' | 'tablets';
 
@@ -40,53 +41,78 @@ const Catalog = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 pt-36 pb-20">
         <div className="mb-12">
-          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Product Catalog</h1>
-          <p className="text-muted-foreground text-lg">Discover our complete collection</p>
+          <h1 className="text-6xl font-bold mb-4">Product Catalog</h1>
+          <p className="text-muted-foreground text-xl">Explore our complete collection</p>
         </div>
 
-        <div className="mb-10 space-y-6">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
-            <Input
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 h-14 text-base border-border/50 focus:border-primary/50 bg-background/50 backdrop-blur-sm"
-            />
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <aside className="lg:col-span-1">
+            <Card className="p-6 sticky top-36 border-border/50">
+              <div className="flex items-center gap-2 mb-6">
+                <SlidersHorizontal className="h-5 w-5 text-primary" />
+                <h3 className="font-bold text-lg">Filters</h3>
+              </div>
 
-          <div className="flex flex-wrap gap-3">
-            {categories.map((category) => (
-              <Button
-                key={category.value}
-                variant={selectedCategory === category.value ? 'default' : 'outline'}
-                onClick={() => setSelectedCategory(category.value)}
-                className={selectedCategory === category.value ? 'glow-primary hover:scale-105 transition-all' : 'border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 transition-all'}
-                size="lg"
-              >
-                {category.label}
-              </Button>
-            ))}
-          </div>
-        </div>
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-muted-foreground mb-3">CATEGORIES</h4>
+                {categories.map((category) => (
+                  <Button
+                    key={category.value}
+                    variant={selectedCategory === category.value ? 'default' : 'ghost'}
+                    onClick={() => setSelectedCategory(category.value)}
+                    className={`w-full justify-start rounded-xl ${
+                      selectedCategory === category.value 
+                        ? 'glow-primary' 
+                        : 'hover:bg-primary/10'
+                    }`}
+                  >
+                    {category.label}
+                  </Button>
+                ))}
+              </div>
 
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-32 glass-card rounded-3xl">
-            <div className="inline-flex p-6 rounded-full bg-muted/20 mb-6">
-              <Search className="h-12 w-12 text-muted-foreground" />
+              <div className="mt-8 pt-6 border-t border-border">
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground mb-2">Showing</p>
+                  <p className="text-2xl font-bold text-primary">{filteredProducts.length}</p>
+                  <p className="text-sm text-muted-foreground">Products</p>
+                </div>
+              </div>
+            </Card>
+          </aside>
+
+          <div className="lg:col-span-3">
+            <div className="mb-8">
+              <div className="relative">
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-14 h-16 text-lg rounded-2xl border-border/50 bg-card/50 backdrop-blur-sm"
+                />
+              </div>
             </div>
-            <h3 className="text-2xl font-bold mb-3">No products found</h3>
-            <p className="text-muted-foreground text-lg">Try adjusting your search or filters</p>
+
+            {filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-32 rounded-3xl border-2 border-dashed border-border">
+                <div className="inline-flex p-8 rounded-full bg-muted/20 mb-6">
+                  <Search className="h-16 w-16 text-muted-foreground" />
+                </div>
+                <h3 className="text-3xl font-bold mb-3">No products found</h3>
+                <p className="text-muted-foreground text-lg">Try adjusting your search or filters</p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </main>
       <Footer />
     </div>
